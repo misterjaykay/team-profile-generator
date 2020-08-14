@@ -15,15 +15,20 @@ const render = require("./lib/htmlRenderer");
 //         console.log("Incorrect E-mail");
 //     }
 // var confirmation = confirmEmail(input.email);
-function confirmEmail(confirmation) {
-if (confirmation !== "@" || confirmation !== ".com") {
-    console.log("Incorrect E-mail");
+// function confirmEmail(confirmation) {
+// if (confirmation !== "@" || confirmation !== ".com") {
+//     console.log("Incorrect E-mail");
+// }
+const validateEmail = value => {
+    if (value.includes("@") == true) {
+        // console.log(value.email);
+        return true;
+    }
+    return "Please write a proper e-mail adress.";
+    // return false;
 }
-}
-function askQuestions() { 
 
-    inquirer
-    .prompt([
+const managerQuestions = [
     {
         type: "input",
         message: "What is your manager's name?",
@@ -38,7 +43,7 @@ function askQuestions() {
         type: "input",
         message: "What is your manager's email?",
         name: "email",
-        validate: ""
+        validate: validateEmail
     },
     {
         type: "input",
@@ -50,12 +55,21 @@ function askQuestions() {
         message: "Which type of team member would you like to add?",
         choices: ["Engineer", "Intern", "No, I do not want to add any team members."],
         name: "add"
-    }])
-    .then
-    console.log("input finished");
+    }
+];
 
+function askQuestions() { 
+    inquirer
+    .prompt(managerQuestions)
+    .then(function(responses) {
+        console.log(`input finished`, responses);
+    })
+    
+    
 }
+
 askQuestions();
+
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
