@@ -1,18 +1,21 @@
 // TODO: Write code to define and export the Engineer class.  HINT: This class should inherit from Employee.
 
-function Engineer() {
+class Engineer {
+    constructor() {
     this.name = name;
     this.id = id;
     this.email = email;
     this.github = github;
-}
+    }
 
-function getRole() {
+    getRole() {
+    
+    }
+    
+    getGithub() {
+        
+    }
 
-}
-
-function getGithub() {
-    return github;
 }
 
 module.exports = Engineer;
