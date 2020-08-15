@@ -1,3 +1,4 @@
+const Employee = require("./lib/Employee");
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
@@ -21,7 +22,51 @@ const { get } = require("http");
 //     // return false;
 // }
 
-const myManager = new Manager();
+// const myManager = new Manager(data.name,data.id,data.email,data.office);
+
+function askManager() {
+    inquirer
+    .prompt([
+        {
+            type: "input",
+            message: "What is your manager's name?",
+            name: "name"
+        },
+        {
+            type: "input",
+            message: "What is your manager's id?",
+            name: "id"
+        },
+        {
+            type: "input",
+            message: "What is your manager's email?",
+            name: "email",
+            // validate: validateEmail
+        },
+        {
+            type: "input",
+            message: "What is your manager's office number?",
+            name: "office"
+        },
+        {
+            type: "list",
+            message: "Which type of team member would you like to add?",
+            choices: ["Engineer", "Intern", "No, I do not want to add any team members."],
+            name: "addrole"
+        }
+    ])
+    .then(function(data){
+    const newEmployee = new Employee(data.name, data.id, data.email,data.office);
+    // const newManager = new Manager(data.office);
+    console.log(newEmployee);
+    Intern.prototype.getRole();
+    
+    });
+}
+
+askManager();
+
+
 const managerQuestions = [
     {
         type: "input",
@@ -112,37 +157,40 @@ const internQuestions = [
     }
 ];
 
-function askQuestions() { 
-    inquirer
-    .prompt(managerQuestions)
-    .then(function(managerVal) {
-        console.log(managerVal);
+// function askQuestions() { 
+//     inquirer
+//     .prompt(managerQuestions)
+//     .then(function(data) {
+//         console.log(data);
 
-        // myManager.getOfficeNumber(managerVal.office);
+//         // GIVE OUT DATAS LIKE THIS TO EACH ROLES
+//         const myManager = new Manager(data.name, data.id, data.email, data.office);
+//         console.log(myManager);
+//         // myManager.getOfficeNumber(managerVal.office);
         
-        // if (managerVal.add = "Engineer") {
-        //     inquirer
-        //     .prompt(engineerQuestions)
-        //     .then(function(engineerVal) {
-        //         console.log(engineerVal);
-        //     })
-        // }
-        // else if (managerVal.add = "Intern") {
-        //     inquirer
-        //     .prompt(internQuestions)
-        //     .then(function(internVal) {
-        //         console.log(internVal);
-        //     })
-        // }
-        // else {
-        //     return console.log("Your input is done.")
-        // }
-    })
+//         // if (managerVal.add = "Engineer") {
+//         //     inquirer
+//         //     .prompt(engineerQuestions)
+//         //     .then(function(engineerVal) {
+//         //         console.log(engineerVal);
+//         //     })
+//         // }
+//         // else if (managerVal.add = "Intern") {
+//         //     inquirer
+//         //     .prompt(internQuestions)
+//         //     .then(function(internVal) {
+//         //         console.log(internVal);
+//         //     })
+//         // }
+//         // else {
+//         //     return console.log("Your input is done.")
+//         // }
+//     })
     
     
-}
+// }
 
-askQuestions();
+// askQuestions();
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)

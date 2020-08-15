@@ -8,17 +8,13 @@ class Intern extends Employee {
     }
 
     getRole() {
-        if(value.choice = "Intern") {
         return "Intern";
-        }
     }
     
     getSchool() {
-        
+        return this.school;
     }
 
 }
-
-
 
 module.exports = Intern;

@@ -11,18 +11,10 @@ class Manager extends Employee {
         return "Manager";
     }
 
-    getOfficeNumber(office) {
-        if (office == "test") {
-            return console.log("You did correct!");
-        }
-        else {
-            return false;
-        }
+    getOfficeNumber() {
+        return this.officeNumber;
     }
        
 }
-
-
-
 
 module.exports = Manager;
