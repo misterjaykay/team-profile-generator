@@ -9,25 +9,19 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
+const { get } = require("http");
 
-// var confirmation = confirmEmail(input) 
-//     if (confirmation !== "@" || confirmation !== ".com") {
-//         console.log("Incorrect E-mail");
+///// USE THIS TO VALIDATE EMAIL
+// const validateEmail = value => {
+//     if (value.includes("@") == true) {
+//         // console.log(value.email);
+//         return true;
 //     }
-// var confirmation = confirmEmail(input.email);
-// function confirmEmail(confirmation) {
-// if (confirmation !== "@" || confirmation !== ".com") {
-//     console.log("Incorrect E-mail");
+//     return "Please write a proper e-mail adress.";
+//     // return false;
 // }
-const validateEmail = value => {
-    if (value.includes("@") == true) {
-        // console.log(value.email);
-        return true;
-    }
-    return "Please write a proper e-mail adress.";
-    // return false;
-}
 
+const myManager = new Manager();
 const managerQuestions = [
     {
         type: "input",
@@ -43,7 +37,7 @@ const managerQuestions = [
         type: "input",
         message: "What is your manager's email?",
         name: "email",
-        validate: validateEmail
+        // validate: validateEmail
     },
     {
         type: "input",
@@ -54,15 +48,95 @@ const managerQuestions = [
         type: "list",
         message: "Which type of team member would you like to add?",
         choices: ["Engineer", "Intern", "No, I do not want to add any team members."],
-        name: "add"
+        name: "addrole"
+    }
+];
+
+const engineerQuestions = [
+    {
+        type: "input",
+        message: "What is your engineer's name?",
+        name: "name"
+    },
+    {
+        type: "input",
+        message: "What is your engineer's id?",
+        name: "id"
+    },
+    {
+        type: "input",
+        message: "What is your engineer's email?",
+        name: "email",
+        // validate: validateEmail
+    },
+    {
+        type: "input",
+        message: "What is your engineer's Github username?",
+        name: "github"
+    },
+    {
+        type: "list",
+        message: "Which type of team member would you like to add?",
+        choices: ["Engineer", "Intern", "No, I do not want to add any team members."],
+        name: "addrole"
+    }
+];
+
+const internQuestions = [
+    {
+        type: "input",
+        message: "What is your intern's name?",
+        name: "name"
+    },
+    {
+        type: "input",
+        message: "What is your intern's id?",
+        name: "id"
+    },
+    {
+        type: "input",
+        message: "What is your intern's email?",
+        name: "email",
+        // validate: validateEmail
+    },
+    {
+        type: "input",
+        message: "What is your intern's graduated school?",
+        name: "github"
+    },
+    {
+        type: "list",
+        message: "Which type of team member would you like to add?",
+        choices: ["Engineer", "Intern", "No, I do not want to add any team members."],
+        name: "addrole"
     }
 ];
 
 function askQuestions() { 
     inquirer
     .prompt(managerQuestions)
-    .then(function(responses) {
-        console.log(`input finished`, responses);
+    .then(function(managerVal) {
+        console.log(managerVal);
+
+        // myManager.getOfficeNumber(managerVal.office);
+        
+        // if (managerVal.add = "Engineer") {
+        //     inquirer
+        //     .prompt(engineerQuestions)
+        //     .then(function(engineerVal) {
+        //         console.log(engineerVal);
+        //     })
+        // }
+        // else if (managerVal.add = "Intern") {
+        //     inquirer
+        //     .prompt(internQuestions)
+        //     .then(function(internVal) {
+        //         console.log(internVal);
+        //     })
+        // }
+        // else {
+        //     return console.log("Your input is done.")
+        // }
     })
     
     
