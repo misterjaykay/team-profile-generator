@@ -22,6 +22,8 @@ const { get } = require("http");
 //     // return false;
 // }
 
+
+
 function init() {
     console.log("Welcome to Team Profile Generator")
     inquirer
@@ -50,8 +52,19 @@ function init() {
         ])
         .then(function (value) {
             const newManager = new Manager(value.name, value.id, value.email, value.office);
-            askAddRole();
+            let managerList = Array(newManager);
+            addingAll(managerList);  
+            // askAddRole();
         })
+}
+
+function addingAll(list1,list2,list3) {
+    Array.prototype.push.apply(list1, list2, list3)
+    const final = [];
+
+    console.log(final);
+    console.log(list1);
+    return askAddRole();
 }
 
 function askAddRole() {
@@ -65,7 +78,7 @@ function askAddRole() {
             }
         ])
         .then(function (value) {
-            console.log(value);
+            
             if (value.addrole === "Engineer") {
                 askEngineer();
             }
@@ -73,7 +86,13 @@ function askAddRole() {
                 askIntern();
             }
             else {
-                return; // go to print.
+                render(managerList, engineerList, internList);
+                fs.writeFile(outputPath, managerList, function(err){
+                    if (err) {
+                        return err;
+                    }
+                    console.log("Team has been created");
+                });
             }
         })
 }
@@ -105,7 +124,9 @@ function askEngineer() {
         ])
         .then(function (value) {
             const newEngineer = new Engineer(value.name, value.id, value.email, value.github);
-            askAddRole();
+            let engineerList = Array(newEngineer);
+            addingAll(engineerList); 
+            // askAddRole();
         })
 }
 
@@ -136,11 +157,23 @@ function askIntern() {
         ])
         .then(function (value) {
             const newIntern = new Intern(value.name, value.id, value.email, value.school);
+            let internList = Array(newIntern);
+            addingAll(internList);
+            // askAddRole();
         })
 }
 
 init();
 
+function renderLast() {
+    console.log(render(html));
+    fs.writeFile(outputPath, html, function (err) {
+        if (err) {
+            console.log(err);
+        };
+    });
+    console.log("end");
+}
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)

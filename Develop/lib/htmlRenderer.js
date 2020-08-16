@@ -5,7 +5,7 @@ const templatesDir = path.resolve(__dirname, "../templates");
 
 const render = employees => {
   const html = [];
-
+  // console.log("getRole: ", employees.getRole());
   html.push(employees
     .filter(employee => employee.getRole() === "Manager")
     .map(manager => renderManager(manager))
@@ -19,6 +19,7 @@ const render = employees => {
     .map(intern => renderIntern(intern))
   );
 
+  // console.log("Inside of html: ", html);
   return renderMain(html.join(""));
 
 };
@@ -62,5 +63,14 @@ const replacePlaceholders = (template, placeholder, value) => {
   const pattern = new RegExp("{{ " + placeholder + " }}", "gm");
   return template.replace(pattern, value);
 };
+
+// const renderLast = html => {
+//   fs.appendFile(outputPath, html, function (err) {
+//     if (err) {
+//       console.log(err);
+//     };
+//   });
+//   console.log("end");
+// }
 
 module.exports = render;
