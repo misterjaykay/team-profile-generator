@@ -1,6 +1,35 @@
+body {
+    font-family: 'Alata', sans-serif;
+}
+
 .employee-card {
-    border-radius: 25px;
+    /* border-radius: 25px; */
     border-style: solid;
     border-color: black;
     border-width: 1px;
+}
+
+.manager .card-header {
+    background-color: #30A9DE;
+    text-align: center;
+}
+
+.engineer .card-header {
+    background-color: #E53A40;
+    text-align: center;
+}
+
+.intern .card-header {
+    background-color: #EFDC05;
+    text-align: center;
+}
+
+.list-group {
+    border-color: black;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.list-group-item {
+    background-color: lightgrey;
 }
