@@ -64,13 +64,4 @@ const replacePlaceholders = (template, placeholder, value) => {
   return template.replace(pattern, value);
 };
 
-// const renderLast = html => {
-//   fs.appendFile(outputPath, html, function (err) {
-//     if (err) {
-//       console.log(err);
-//     };
-//   });
-//   console.log("end");
-// }
-
 module.exports = render;

@@ -1,4 +1,4 @@
-const Employee = require("./lib/Employee");
+// const Employee = require("./lib/Employee"); /// Do not need this 
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
@@ -10,20 +10,23 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
-const { get } = require("http");
+// const { get } = require("http"); /// Do not need this 
 
-// /// USE THIS TO VALIDATE EMAIL
-// const validateEmail = value => {
-//     if (value.includes("@") == true) {
-//         // console.log(value.email);
-//         return true;
-//     }
-//     return "Please write a proper e-mail adress.";
-//     // return false;
-// }
+/// USE THIS TO VALIDATE EMAIL
+const validateEmail = value => {
+    if (value.includes("@",".") == true) { /// check includes and .match
+        // console.log(value.email);
+        return true;
+    }
+    return "Please write a proper e-mail adress.";
+    // return false;
+}
+
+/// TEAM ARRAY
+const teamArr = [];
 
 
-
+/// INITIALIZE FUNCTION
 function init() {
     console.log("Welcome to Team Profile Generator")
     inquirer
@@ -42,7 +45,7 @@ function init() {
                 type: "input",
                 message: "What is your manager's email?",
                 name: "email",
-                // validate: validateEmail
+                validate: validateEmail
             },
             {
                 type: "input",
@@ -52,21 +55,12 @@ function init() {
         ])
         .then(function (value) {
             const newManager = new Manager(value.name, value.id, value.email, value.office);
-            let managerList = Array(newManager);
-            addingAll(managerList);  
-            // askAddRole();
+            teamArr.push(newManager);
+            askAddRole();
         })
 }
 
-function addingAll(list1,list2,list3) {
-    Array.prototype.push.apply(list1, list2, list3)
-    const final = [];
-
-    console.log(final);
-    console.log(list1);
-    return askAddRole();
-}
-
+/// ASKING USERS TO IF USER WANTS TO ADD ROLE OR PRINT OUT THE TEAM
 function askAddRole() {
     inquirer
         .prompt([
@@ -78,6 +72,7 @@ function askAddRole() {
             }
         ])
         .then(function (value) {
+        // .then(value => {}) /// using arrow function
             
             if (value.addrole === "Engineer") {
                 askEngineer();
@@ -86,17 +81,12 @@ function askAddRole() {
                 askIntern();
             }
             else {
-                render(managerList, engineerList, internList);
-                fs.writeFile(outputPath, managerList, function(err){
-                    if (err) {
-                        return err;
-                    }
-                    console.log("Team has been created");
-                });
+                renderLast();
             }
         })
 }
 
+/// ASKING ENGINEER INFO IF ENGINEER IS PICKED
 function askEngineer() {
     inquirer
         .prompt([
@@ -114,7 +104,7 @@ function askEngineer() {
                 type: "input",
                 message: "What is your engineer's email?",
                 name: "email",
-                // validate: validateEmail
+                validate: validateEmail
             },
             {
                 type: "input",
@@ -124,12 +114,13 @@ function askEngineer() {
         ])
         .then(function (value) {
             const newEngineer = new Engineer(value.name, value.id, value.email, value.github);
-            let engineerList = Array(newEngineer);
-            addingAll(engineerList); 
-            // askAddRole();
+            teamArr.push(newEngineer);
+            // addingAll(engineerList); 
+            askAddRole();
         })
 }
 
+/// ASKING INTERN INFO IF INTERN IS PICKED
 function askIntern() {
     inquirer
         .prompt([
@@ -147,7 +138,7 @@ function askIntern() {
                 type: "input",
                 message: "What is your intern's email?",
                 name: "email",
-                // validate: validateEmail
+                validate: validateEmail
             },
             {
                 type: "input",
@@ -157,17 +148,21 @@ function askIntern() {
         ])
         .then(function (value) {
             const newIntern = new Intern(value.name, value.id, value.email, value.school);
-            let internList = Array(newIntern);
-            addingAll(internList);
-            // askAddRole();
+            teamArr.push(newIntern);
+            // addingAll(internList);
+            askAddRole();
         })
 }
 
 init();
 
 function renderLast() {
-    console.log(render(html));
-    fs.writeFile(outputPath, html, function (err) {
+    // console.log(render(html));
+    if (!fs.existsSync(OUTPUT_DIR)) {
+        fs.mkdirSync(OUTPUT_DIR);
+    } 
+    
+    fs.writeFile(outputPath, render(teamArr), function (err) {
         if (err) {
             console.log(err);
         };
