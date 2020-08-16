@@ -149,15 +149,12 @@ function askIntern() {
         .then(function (value) {
             const newIntern = new Intern(value.name, value.id, value.email, value.school);
             teamArr.push(newIntern);
-            // addingAll(internList);
             askAddRole();
         })
 }
 
-init();
-
+/// RENDERING USERS INPUT INTO HTML PAGE
 function renderLast() {
-    // console.log(render(html));
     if (!fs.existsSync(OUTPUT_DIR)) {
         fs.mkdirSync(OUTPUT_DIR);
     } 
@@ -167,8 +164,11 @@ function renderLast() {
             console.log(err);
         };
     });
-    console.log("end");
+    console.log("Successfully Created the file.");
 }
+
+/// STARTING APP
+init();
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)

@@ -5,7 +5,7 @@ const templatesDir = path.resolve(__dirname, "../templates");
 
 const render = employees => {
   const html = [];
-  // console.log("getRole: ", employees.getRole());
+
   html.push(employees
     .filter(employee => employee.getRole() === "Manager")
     .map(manager => renderManager(manager))
@@ -19,7 +19,6 @@ const render = employees => {
     .map(intern => renderIntern(intern))
   );
 
-  // console.log("Inside of html: ", html);
   return renderMain(html.join(""));
 
 };
