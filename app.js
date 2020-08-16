@@ -14,12 +14,13 @@ const render = require("./lib/htmlRenderer");
 
 /// USE THIS TO VALIDATE EMAIL
 const validateEmail = value => {
-    if (value.includes("@",".") == true) { /// check includes and .match
-        // console.log(value.email);
+    if (value.includes("@") == true) { /// check includes and .match
         return true;
     }
-    return "Please write a proper e-mail adress.";
-    // return false;
+    
+    else {
+        return "Please write a proper e-mail adress.";
+    }
 }
 
 /// TEAM ARRAY
