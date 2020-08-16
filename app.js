@@ -14,7 +14,7 @@ const render = require("./lib/htmlRenderer");
 
 /// USE THIS TO VALIDATE EMAIL
 const validateEmail = value => {
-    if (value.includes("@") == true && value.includes(".") == true ) { /// check difference between .includes and .match
+    if (value.includes("@") === true && value.includes(".") === true ) { /// check difference between .includes and .match
         return true;
     }
     
@@ -24,7 +24,7 @@ const validateEmail = value => {
 }
 
 const validateId = value => {
-    if (!value.includes(idArr) == true) {
+    if (!value.includes(idArr) === true) {
         return true;
     }
 
@@ -33,7 +33,7 @@ const validateId = value => {
     }
 }
 
-/// TEAM ARRAY
+/// TEAM AND ID ARRAY
 const teamArr = [];
 const idArr = [];
 
