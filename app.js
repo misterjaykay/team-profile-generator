@@ -14,7 +14,7 @@ const render = require("./lib/htmlRenderer");
 
 /// USE THIS TO VALIDATE EMAIL
 const validateEmail = value => {
-    if (value.includes("@") == true) { /// check includes and .match
+    if (value.includes("@") == true && value.includes(".") == true ) { /// check difference between .includes and .match
         return true;
     }
     
@@ -23,9 +23,19 @@ const validateEmail = value => {
     }
 }
 
+const validateId = value => {
+    if (!value.includes(idArr) == true) {
+        return true;
+    }
+
+    else {
+        return "This ID is assigned already, please re-asign ID.";
+    }
+}
+
 /// TEAM ARRAY
 const teamArr = [];
-
+const idArr = [];
 
 /// INITIALIZE FUNCTION
 function init() {
@@ -40,7 +50,8 @@ function init() {
             {
                 type: "input",
                 message: "What is your manager's id?",
-                name: "id"
+                name: "id",
+                default: "Please assign from 1-100",
             },
             {
                 type: "input",
@@ -57,6 +68,7 @@ function init() {
         .then(function (value) {
             const newManager = new Manager(value.name, value.id, value.email, value.office);
             teamArr.push(newManager);
+            idArr.push(value.id);
             askAddRole();
         })
 }
@@ -89,6 +101,7 @@ function askAddRole() {
 
 /// ASKING ENGINEER INFO IF ENGINEER IS PICKED
 function askEngineer() {
+    console.log(idArr);
     inquirer
         .prompt([
             {
@@ -99,7 +112,9 @@ function askEngineer() {
             {
                 type: "input",
                 message: "What is your engineer's id?",
-                name: "id"
+                name: "id",
+                default: "Please assign from 1-100",
+                validate: validateId
             },
             {
                 type: "input",
@@ -116,7 +131,7 @@ function askEngineer() {
         .then(function (value) {
             const newEngineer = new Engineer(value.name, value.id, value.email, value.github);
             teamArr.push(newEngineer);
-            // addingAll(engineerList); 
+            idArr.push(value.id);
             askAddRole();
         })
 }
@@ -133,7 +148,9 @@ function askIntern() {
             {
                 type: "input",
                 message: "What is your intern's id?",
-                name: "id"
+                name: "id",
+                default: "Please assign from 1-100",
+                validate: validateId
             },
             {
                 type: "input",
@@ -150,6 +167,7 @@ function askIntern() {
         .then(function (value) {
             const newIntern = new Intern(value.name, value.id, value.email, value.school);
             teamArr.push(newIntern);
+            idArr.push(value.id);
             askAddRole();
         })
 }
