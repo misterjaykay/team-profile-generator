@@ -12,7 +12,7 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 const render = require("./lib/htmlRenderer");
 const { get } = require("http");
 
-///// USE THIS TO VALIDATE EMAIL
+// /// USE THIS TO VALIDATE EMAIL
 // const validateEmail = value => {
 //     if (value.includes("@") == true) {
 //         // console.log(value.email);
@@ -22,175 +22,125 @@ const { get } = require("http");
 //     // return false;
 // }
 
-// const myManager = new Manager(data.name,data.id,data.email,data.office);
-
-function askManager() {
+function init() {
+    console.log("Welcome to Team Profile Generator")
     inquirer
-    .prompt([
-        {
-            type: "input",
-            message: "What is your manager's name?",
-            name: "name"
-        },
-        {
-            type: "input",
-            message: "What is your manager's id?",
-            name: "id"
-        },
-        {
-            type: "input",
-            message: "What is your manager's email?",
-            name: "email",
-            // validate: validateEmail
-        },
-        {
-            type: "input",
-            message: "What is your manager's office number?",
-            name: "office"
-        },
-        {
-            type: "list",
-            message: "Which type of team member would you like to add?",
-            choices: ["Engineer", "Intern", "No, I do not want to add any team members."],
-            name: "addrole"
-        }
-    ])
-    .then(function(data){
-    const newEmployee = new Employee(data.name, data.id, data.email,data.office);
-    // const newManager = new Manager(data.office);
-    console.log(newEmployee);
-    Intern.prototype.getRole();
-    
-    });
+        .prompt([
+            {
+                type: "input",
+                message: "What is your manager's name?",
+                name: "name"
+            },
+            {
+                type: "input",
+                message: "What is your manager's id?",
+                name: "id"
+            },
+            {
+                type: "input",
+                message: "What is your manager's email?",
+                name: "email",
+                // validate: validateEmail
+            },
+            {
+                type: "input",
+                message: "What is your manager's office number?",
+                name: "office"
+            }
+        ])
+        .then(function (value) {
+            const newManager = new Manager(value.name, value.id, value.email, value.office);
+            askAddRole();
+        })
 }
 
-askManager();
+function askAddRole() {
+    inquirer
+        .prompt([
+            {
+                type: "list",
+                message: "Which type of team member would you like to add?",
+                choices: ["Engineer", "Intern", "No, I do not want to add any team members."],
+                name: "addrole"
+            }
+        ])
+        .then(function (value) {
+            console.log(value);
+            if (value.addrole === "Engineer") {
+                askEngineer();
+            }
+            else if (value.addrole === "Intern") {
+                askIntern();
+            }
+            else {
+                return; // go to print.
+            }
+        })
+}
 
+function askEngineer() {
+    inquirer
+        .prompt([
+            {
+                type: "input",
+                message: "What is your engineer's name?",
+                name: "name"
+            },
+            {
+                type: "input",
+                message: "What is your engineer's id?",
+                name: "id"
+            },
+            {
+                type: "input",
+                message: "What is your engineer's email?",
+                name: "email",
+                // validate: validateEmail
+            },
+            {
+                type: "input",
+                message: "What is your engineer's Github username?",
+                name: "github"
+            }
+        ])
+        .then(function (value) {
+            const newEngineer = new Engineer(value.name, value.id, value.email, value.github);
+            askAddRole();
+        })
+}
 
-const managerQuestions = [
-    {
-        type: "input",
-        message: "What is your manager's name?",
-        name: "name"
-    },
-    {
-        type: "input",
-        message: "What is your manager's id?",
-        name: "id"
-    },
-    {
-        type: "input",
-        message: "What is your manager's email?",
-        name: "email",
-        // validate: validateEmail
-    },
-    {
-        type: "input",
-        message: "What is your manager's office number?",
-        name: "office"
-    },
-    {
-        type: "list",
-        message: "Which type of team member would you like to add?",
-        choices: ["Engineer", "Intern", "No, I do not want to add any team members."],
-        name: "addrole"
-    }
-];
+function askIntern() {
+    inquirer
+        .prompt([
+            {
+                type: "input",
+                message: "What is your intern's name?",
+                name: "name"
+            },
+            {
+                type: "input",
+                message: "What is your intern's id?",
+                name: "id"
+            },
+            {
+                type: "input",
+                message: "What is your intern's email?",
+                name: "email",
+                // validate: validateEmail
+            },
+            {
+                type: "input",
+                message: "What is your intern's graduated school?",
+                name: "school"
+            }
+        ])
+        .then(function (value) {
+            const newIntern = new Intern(value.name, value.id, value.email, value.school);
+        })
+}
 
-const engineerQuestions = [
-    {
-        type: "input",
-        message: "What is your engineer's name?",
-        name: "name"
-    },
-    {
-        type: "input",
-        message: "What is your engineer's id?",
-        name: "id"
-    },
-    {
-        type: "input",
-        message: "What is your engineer's email?",
-        name: "email",
-        // validate: validateEmail
-    },
-    {
-        type: "input",
-        message: "What is your engineer's Github username?",
-        name: "github"
-    },
-    {
-        type: "list",
-        message: "Which type of team member would you like to add?",
-        choices: ["Engineer", "Intern", "No, I do not want to add any team members."],
-        name: "addrole"
-    }
-];
+init();
 
-const internQuestions = [
-    {
-        type: "input",
-        message: "What is your intern's name?",
-        name: "name"
-    },
-    {
-        type: "input",
-        message: "What is your intern's id?",
-        name: "id"
-    },
-    {
-        type: "input",
-        message: "What is your intern's email?",
-        name: "email",
-        // validate: validateEmail
-    },
-    {
-        type: "input",
-        message: "What is your intern's graduated school?",
-        name: "github"
-    },
-    {
-        type: "list",
-        message: "Which type of team member would you like to add?",
-        choices: ["Engineer", "Intern", "No, I do not want to add any team members."],
-        name: "addrole"
-    }
-];
-
-// function askQuestions() { 
-//     inquirer
-//     .prompt(managerQuestions)
-//     .then(function(data) {
-//         console.log(data);
-
-//         // GIVE OUT DATAS LIKE THIS TO EACH ROLES
-//         const myManager = new Manager(data.name, data.id, data.email, data.office);
-//         console.log(myManager);
-//         // myManager.getOfficeNumber(managerVal.office);
-        
-//         // if (managerVal.add = "Engineer") {
-//         //     inquirer
-//         //     .prompt(engineerQuestions)
-//         //     .then(function(engineerVal) {
-//         //         console.log(engineerVal);
-//         //     })
-//         // }
-//         // else if (managerVal.add = "Intern") {
-//         //     inquirer
-//         //     .prompt(internQuestions)
-//         //     .then(function(internVal) {
-//         //         console.log(internVal);
-//         //     })
-//         // }
-//         // else {
-//         //     return console.log("Your input is done.")
-//         // }
-//     })
-    
-    
-// }
-
-// askQuestions();
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
