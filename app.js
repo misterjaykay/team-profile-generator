@@ -23,16 +23,13 @@ const validateEmail = value => {
     }
 }
 
+/// USE THIS TO VALIDATE ID NUMBER FOR MANAGER
 const validateIdFirst = value => {
     let input = value.toString();
     const numb = /[0-9]/g;
     const letter = /[A-z ]/g;
-    if (numb.test(input) === true) {
+    if (numb.test(input) === true && letter.test(input) === false) {
         return true;
-    }
-
-    else if (letter.test(input) === true) {
-        return "Wrong entry. only number can be entered."
     }
 
     else {
@@ -40,11 +37,12 @@ const validateIdFirst = value => {
     }
 }
 
+/// USE THIS TO VALIDATE ID NUMBER FOR ENGINEER AND INTERN
 const validateIdLater = value => {
     let input = value.toString();
     const numb = /[0-9]/g;
     const letter = /[A-z ]/g;
-    if (numb.test(input) === true) {
+    if (numb.test(input) === true && letter.test(input) === false) {
 
         if (!value.includes(idArr) === true) {
             return true;
