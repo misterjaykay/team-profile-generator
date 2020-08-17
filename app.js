@@ -29,7 +29,12 @@ const validateIdFirst = value => {
     const numb = /[0-9]/g;
     const letter = /[A-z ]/g;
     if (numb.test(input) === true && letter.test(input) === false) {
-        return true;
+        if (input <= 100) {
+            return true;
+        }
+        else {
+            return "ID cannot be greater than 100.";
+        }
     }
 
     else {
@@ -43,9 +48,13 @@ const validateIdLater = value => {
     const numb = /[0-9]/g;
     const letter = /[A-z ]/g;
     if (numb.test(input) === true && letter.test(input) === false) {
-
         if (idArr.includes(value) === false) {
-            return true;
+            if (input <= 100) {
+                return true;
+            }
+            else {
+                return "ID cannot be greater than 100.";
+            }
         }
         else {
             return "This ID is assigned already, please re-asign ID.";
@@ -75,7 +84,7 @@ const teamArr = [];
 const idArr = [];
 
 /// INITIALIZE FUNCTION
-function init() {
+const init = () => {
     console.log("Welcome to Team Profile Generator")
     inquirer
         .prompt([
@@ -103,7 +112,7 @@ function init() {
                 name: "office"
             }
         ])
-        .then(function (value) {
+        .then(value => {
             const newManager = new Manager(value.name, value.id, value.email, value.office);
             teamArr.push(newManager);
             idArr.push(value.id);
@@ -112,7 +121,7 @@ function init() {
 }
 
 /// ASKING USERS TO IF USER WANTS TO ADD ROLE OR PRINT OUT THE TEAM
-function askAddRole() {
+const askAddRole = () => {
     inquirer
         .prompt([
             {
@@ -122,23 +131,34 @@ function askAddRole() {
                 name: "addrole"
             }
         ])
-        .then(function (value) {
-        // .then(value => {}) /// using arrow function
-            
-            if (value.addrole === "Engineer") {
-                askEngineer();
+        // .then(function (value) {
+        .then(value => {
+            const role = value.addrole;
+            switch(role) {
+                case "Engineer":
+                    askEngineer();
+                    break;
+                case "Intern":
+                    askIntern();
+                    break;
+                default:
+                    renderLast();
+                    break;
             }
-            else if (value.addrole === "Intern") {
-                askIntern();
-            }
-            else {
-                renderLast();
-            }
+            // if (value.addrole === "Engineer") {
+            //     askEngineer();
+            // }
+            // else if (value.addrole === "Intern") {
+            //     askIntern();
+            // }
+            // else {
+            //     renderLast();
+            // }
         })
 }
 
 /// ASKING ENGINEER INFO IF ENGINEER IS PICKED
-function askEngineer() {
+const askEngineer = () => {
     inquirer
         .prompt([
             {
@@ -165,7 +185,7 @@ function askEngineer() {
                 name: "github"
             }
         ])
-        .then(function (value) {
+        .then(value => {
             const newEngineer = new Engineer(value.name, value.id, value.email, value.github);
             teamArr.push(newEngineer);
             idArr.push(value.id);
@@ -174,7 +194,7 @@ function askEngineer() {
 }
 
 /// ASKING INTERN INFO IF INTERN IS PICKED
-function askIntern() {
+const askIntern = () => {
     inquirer
         .prompt([
             {
@@ -201,7 +221,7 @@ function askIntern() {
                 name: "school"
             }
         ])
-        .then(function (value) {
+        .then(value => {
             const newIntern = new Intern(value.name, value.id, value.email, value.school);
             teamArr.push(newIntern);
             idArr.push(value.id);
@@ -210,7 +230,7 @@ function askIntern() {
 }
 
 /// RENDERING USERS INPUT INTO HTML PAGE
-function renderLast() {
+const renderLast = () => {
     if (!fs.existsSync(OUTPUT_DIR)) {
         fs.mkdirSync(OUTPUT_DIR);
     } 
