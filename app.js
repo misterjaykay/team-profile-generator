@@ -23,13 +23,39 @@ const validateEmail = value => {
     }
 }
 
-const validateId = value => {
-    if (!value.includes(idArr) === true) {
+const validateIdFirst = value => {
+    let input = value.toString();
+    const numb = /[0-9]/g;
+    const letter = /[A-z ]/g;
+    if (numb.test(input) === true) {
         return true;
     }
 
+    else if (letter.test(input) === true) {
+        return "Wrong entry. only number can be entered."
+    }
+
     else {
-        return "This ID is assigned already, please re-asign ID.";
+        return "Wrong entry. only number can be entered.";
+    }
+}
+
+const validateIdLater = value => {
+    let input = value.toString();
+    const numb = /[0-9]/g;
+    const letter = /[A-z ]/g;
+    if (numb.test(input) === true) {
+
+        if (!value.includes(idArr) === true) {
+            return true;
+        }
+        else {
+            return "This ID is assigned already, please re-asign ID.";
+        }
+    }
+
+    else {
+        return "Wrong entry. only number can be entered.";
     }
 }
 
@@ -52,6 +78,7 @@ function init() {
                 message: "What is your manager's id?",
                 name: "id",
                 default: "Please assign from 1-100",
+                validate: validateIdFirst
             },
             {
                 type: "input",
@@ -114,7 +141,7 @@ function askEngineer() {
                 message: "What is your engineer's id?",
                 name: "id",
                 default: "Please assign from 1-100",
-                validate: validateId
+                validate: validateIdLater
             },
             {
                 type: "input",
@@ -150,7 +177,7 @@ function askIntern() {
                 message: "What is your intern's id?",
                 name: "id",
                 default: "Please assign from 1-100",
-                validate: validateId
+                validate: validateIdLater
             },
             {
                 type: "input",
