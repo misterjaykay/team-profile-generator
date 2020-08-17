@@ -44,7 +44,7 @@ const validateIdLater = value => {
     const letter = /[A-z ]/g;
     if (numb.test(input) === true && letter.test(input) === false) {
 
-        if (!value.includes(idArr) === true) {
+        if (idArr.includes(value) === false) {
             return true;
         }
         else {
@@ -55,6 +55,19 @@ const validateIdLater = value => {
     else {
         return "Wrong entry. only number can be entered.";
     }
+
+    /// OPPOSITE WAY
+    // if (idArr.includes(value) === false) {
+    //     if (numb.test(input) === true && letter.test(input) === false) {
+    //         return true;
+    //     }
+    //     else {
+    //         return "Wrong entry. only number can be entered.";
+    //     }
+    // }
+    // else {
+    //     return "This ID is assigned already, please re-asign ID.";
+    // }
 }
 
 /// TEAM AND ID ARRAY
@@ -126,7 +139,6 @@ function askAddRole() {
 
 /// ASKING ENGINEER INFO IF ENGINEER IS PICKED
 function askEngineer() {
-    console.log(idArr);
     inquirer
         .prompt([
             {
@@ -208,7 +220,7 @@ function renderLast() {
             console.log(err);
         };
     });
-    console.log("Successfully Created the file.");
+    console.log("Successfully created the Team Profile Page.");
 }
 
 /// STARTING APP
