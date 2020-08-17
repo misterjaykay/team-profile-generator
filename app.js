@@ -1,4 +1,4 @@
-// const Employee = require("./lib/Employee"); /// Do not need this 
+// const Employee = require("./lib/Employee"); /// 
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
@@ -10,7 +10,7 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
-// const { get } = require("http"); /// Do not need this 
+// const { get } = require("http"); /// 
 
 /// USE THIS TO VALIDATE EMAIL
 const validateEmail = value => {
@@ -64,19 +64,6 @@ const validateIdLater = value => {
     else {
         return "Wrong entry. only number can be entered.";
     }
-
-    /// OPPOSITE WAY
-    // if (idArr.includes(value) === false) {
-    //     if (numb.test(input) === true && letter.test(input) === false) {
-    //         return true;
-    //     }
-    //     else {
-    //         return "Wrong entry. only number can be entered.";
-    //     }
-    // }
-    // else {
-    //     return "This ID is assigned already, please re-asign ID.";
-    // }
 }
 
 /// TEAM AND ID ARRAY
@@ -145,15 +132,6 @@ const askAddRole = () => {
                     renderLast();
                     break;
             }
-            // if (value.addrole === "Engineer") {
-            //     askEngineer();
-            // }
-            // else if (value.addrole === "Intern") {
-            //     askIntern();
-            // }
-            // else {
-            //     renderLast();
-            // }
         })
 }
 
