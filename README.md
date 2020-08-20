@@ -9,13 +9,13 @@
 
 ---
   ## Getting Started
-  - [Languages Used](##Languages&#32;Used)
-  - [Installation](##Installation)
-  - [Contribute](##Contribute)
-  - [Test](##Test)
-  - [Preivew](##Preview)
-  - [Questions](##Questions)
-  - [Licenses](##Licenses)
+  - [Languages Used](#Languages&#32;Used)
+  - [Installation](#Installation)
+  - [Contribute](#Contribute)
+  - [Test](#Test)
+  - [Preivew](#Preview)
+  - [Questions](#Questions)
+  - [Licenses](#Licenses)
 
 ---
   ## Languages Used
