@@ -9,7 +9,7 @@
 
 ---
   ## Getting Started
-  - [Languages Used](#Languages&#32;Used)
+  - [Languages Used](#Languages-Used)
   - [Installation](#Installation)
   - [Contribute](#Contribute)
   - [Test](#Test)
